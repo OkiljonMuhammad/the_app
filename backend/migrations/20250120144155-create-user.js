@@ -18,11 +18,18 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
-      lastSeen: {
-        type: Sequelize.DATE
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      lastLogin: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: null,
       },
       role: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'user',
       },
       blocked: {
         type: Sequelize.BOOLEAN,
@@ -30,11 +37,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW'),
       }
     });
   },

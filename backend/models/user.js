@@ -1,7 +1,6 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+const bcrypt = require('bcrypt');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -13,26 +12,67 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+     /**
+     * Compare the provided password with the hashed password in the database.
+     */
+    isValidPassword(password) {
+      return bcrypt.compare(password, this.password);
+    }
   }
   User.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [3, 50],
+      },
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, // Add unique constraint
+      unique: true, 
       validate: {
-        isEmail: true, // Ensure valid email format
+        isEmail: true, 
       },
     },
-    lastSeen: DataTypes.DATE,
-    role: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [6, 100],
+      },
+    },
+    lastLogin: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: null,
+    }, 
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: 'user',
+    },
     blocked: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false, // Default value for blocked field
+      defaultValue: false, 
     },
   }, {
     sequelize,
     modelName: 'User',
+     /**
+       * Lifecycle Hooks
+       */
+     hooks: {
+      beforeCreate: async (user) => {
+        if (user.password) {
+          user.password = await bcrypt.hash(user.password, 10);
+        }
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed('password')) {
+          user.password = await bcrypt.hash(user.password, 10);
+        }
+      },
+    },
   });
   return User;
 };
