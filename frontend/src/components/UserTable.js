@@ -5,7 +5,10 @@ function UserTable() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/users')
+    const token = localStorage.getItem('token');
+    axios.get('http://localhost:3001/api/users', {
+      headers: { Authorization: `Bearer ${token}`,},
+    })
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
   }, []);
@@ -17,7 +20,7 @@ function UserTable() {
           <th>Name</th>
           <th>Email</th>
           <th>Last Seen</th>
-          <th>Role</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -25,8 +28,8 @@ function UserTable() {
           <tr key={user.id}>
             <td>{user.name}</td>
             <td>{user.email}</td>
-            <td>{new Date(user.lastSeen).toLocaleString()}</td>
-            <td>{user.role || 'N/A'}</td>
+            <td>{new Date(user.lastLogin).toLocaleString()}</td>
+            <td>{user.blocked ? 'Blocked' : 'Active'}</td>
           </tr>
         ))}
       </tbody>
