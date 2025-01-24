@@ -19,10 +19,15 @@ function Login() {
       const response = await axios.put('http://localhost:3001/api/users/login', formData);
       setToken(response.data.token);
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.userId); 
       setMessage('Login successful!');
       navigate('/dashboard');
     } catch (error) {
-      setMessage('Error logging in. Please check your credentials.');
+      if (error.response && error.response.status === 403) {
+        setMessage("Your account is blocked");
+      }else {
+        setMessage('Please check your credentials.');
+      }
     }
   };
 
@@ -39,7 +44,7 @@ function Login() {
       <form onSubmit={handleSubmit} className='w-25'>
         <div>
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">E-mail</label>
+          <label htmlFor="email" className="form-label">Email</label>
           <input
             type="email"
             className="form-control"
@@ -48,7 +53,6 @@ function Login() {
             value={formData.email}
             onChange={handleChange}
             required
-            placeholder="test@example.com"
           />
         </div>
         <div className="mb-3">
@@ -61,7 +65,6 @@ function Login() {
             value={formData.password}
             onChange={handleChange}
             required
-            placeholder="••••••••"
           />
         </div>
         <div className="mb-3 form-check">
@@ -74,8 +77,6 @@ function Login() {
       <div className="text-center mt-3">
       <span className="mx-2">Don't have an account?</span>
       <a href="/register" className="text-decoration-none">Sign up</a>
-        <span className="mx-2">|</span>
-        <a href="/" className="text-decoration-none">Forgot password?</a>
       </div>
     </div>
   );

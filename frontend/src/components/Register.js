@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 
 function Register() {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
-
+    const navigate = useNavigate();
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
     try {
       await axios.post('http://localhost:3001/api/users/register', formData);
+      setFormData({ name: '', email: '', password: '' });
       setMessage('Registration successful!');
-      setFormData({ name: '', email: '', password: '' }); // Reset form
+      navigate('/')
     } catch (error) {
-      setMessage('Error registering user.');
+      if (error.response && error.response.status === 409) {
+        setMessage("Email is already in use.");
+      }else {
+        setMessage('Registration failed. Please try again.');
+      }
     }
   };
 
@@ -32,6 +41,8 @@ function Register() {
             className="form-control"
             id="name"
             name="name"
+            minLength={3}
+            maxLength={50}
             value={formData.name}
             onChange={handleChange}
             required
@@ -56,6 +67,8 @@ function Register() {
             className="form-control"
             id="password"
             name="password"
+            minLength={6}
+            maxLength={100}
             value={formData.password}
             onChange={handleChange}
             required
