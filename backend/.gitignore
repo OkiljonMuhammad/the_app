@@ -2,7 +2,7 @@
 node_modules/
 
 # Configuration files
-config.json
+
 
 # Logs
 logs/
