@@ -1,14 +1,26 @@
 {
   "development": {
-    "url": "postgres://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@dpg-cuaf275umphs73ckssfg-a.frankfurt-postgres.render.com:5432/the_app_db_3wdf",
+    "hostname": "dpg-cuaf275umphs73ckssfg-a",
+    "username": "root3942",
+    "password": "gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM",
+    "database": "the_app_db_3wdf",
+    "url": "postgresql://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@dpg-cuaf275umphs73ckssfg-a:5432/the_app_db_3wdf",
     "dialect": "postgres"
   },
   "test": {
-    "url": "postgres://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@localhost:5432/test_db",
+    "hostname": "dpg-cuaf275umphs73ckssfg-a",
+    "username": "root3942",
+    "password": "gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM",
+    "database": "the_app_db_3wdf",
+    "url": "postgresql://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@dpg-cuaf275umphs73ckssfg-a:5432/the_app_db_3wdf",
     "dialect": "postgres"
   },
   "production": {
-    "url": "postgres://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@dpg-cuaf275umphs73ckssfg-a.frankfurt-postgres.render.com:5432/the_app_db_3wdf",
+    "hostname": "dpg-cuaf275umphs73ckssfg-a",
+    "username": "root3942",
+    "password": "gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM",
+    "database": "the_app_db_3wdf",
+    "url": "postgresql://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@dpg-cuaf275umphs73ckssfg-a:5432/the_app_db_3wdf",
     "dialect": "postgres"
   }
 }
