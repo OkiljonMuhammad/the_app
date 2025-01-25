@@ -1,0 +1,14 @@
+{
+  "development": {
+    "url": "postgres://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@dpg-cuaf275umphs73ckssfg-a.frankfurt-postgres.render.com:5432/the_app_db_3wdf",
+    "dialect": "postgres"
+  },
+  "test": {
+    "url": "postgres://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@localhost:5432/test_db",
+    "dialect": "postgres"
+  },
+  "production": {
+    "url": "postgres://root3942:gQfchIwlGlJ0aOBh7jaxHNlC6lgASGSM@dpg-cuaf275umphs73ckssfg-a.frankfurt-postgres.render.com:5432/the_app_db_3wdf",
+    "dialect": "postgres"
+  }
+}
